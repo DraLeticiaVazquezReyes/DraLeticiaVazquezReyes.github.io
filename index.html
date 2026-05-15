@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galería | Dra. Leticia Vazquez Reyes</title>
   
-  <!-- Google Fonts (cargado con link, más confiable) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -63,48 +63,51 @@
       padding: 4rem 0;
     }
 
-    /* ========== ANIMACIONES DE ENTRADA ========== */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes escalaSuave {
-      from {
-        opacity: 0;
-        transform: scale(1.1);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .animar-entrada {
+    /* ========== ANIMACIONES DE SCROLL ========== */
+    .scroll-animar {
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(50px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
 
-    .animar-entrada.visible {
+    .scroll-animar.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .retraso-1 { transition-delay: 0.3s; }
-    .retraso-2 { transition-delay: 0.6s; }
-    .retraso-3 { transition-delay: 0.9s; }
+    /* Efectos específicos para diferentes elementos */
+    .zoom-in {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .zoom-in.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .slide-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .slide-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .slide-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
 
     /* ========== MENÚ MÓVIL ========== */
     .menu-movil {
@@ -148,6 +151,11 @@
       font-size: 1.5rem;
       text-decoration: none;
       letter-spacing: 2px;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-movil-links a:hover {
+      transform: translateX(-5px);
     }
 
     .menu-movil-links.activo {
@@ -175,6 +183,22 @@
       background: radial-gradient(circle at center, transparent 20%, var(--negro-profundo) 90%);
       z-index: 2;
       animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes escalaSuave {
+      from {
+        opacity: 0;
+        transform: scale(1.1);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .hero-bg {
@@ -265,6 +289,11 @@
       width: 100%;
       border: 1px solid var(--ocre-dorado);
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      transition: transform 0.5s ease;
+    }
+
+    .sobre-mi-img img:hover {
+      transform: scale(1.02);
     }
 
     /* ========== GALERÍA ========== */
@@ -284,8 +313,8 @@
 
     .obra-card:hover {
       border-color: var(--ocre-dorado);
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.6);
     }
 
     .obra-card img {
@@ -293,6 +322,11 @@
       height: 300px;
       object-fit: cover;
       display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .obra-card:hover img {
+      transform: scale(1.05);
     }
 
     .obra-info {
@@ -320,6 +354,70 @@
       color: var(--gris-ceniza);
     }
 
+    /* ========== MODAL / LIGHTBOX ========== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-contenido {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      animation: escalaSuave 0.3s ease;
+    }
+
+    .modal-contenido img {
+      width: auto;
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border: 2px solid var(--ocre-dorado);
+      box-shadow: 0 0 40px rgba(184,134,11,0.3);
+    }
+
+    .modal-info {
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--marfil-hueso);
+    }
+
+    .modal-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .modal-info p {
+      font-size: 1rem;
+      color: var(--gris-ceniza);
+    }
+
+    .btn-cerrar {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: var(--ocre-dorado);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-cerrar:hover {
+      transform: scale(1.2);
+    }
+
     /* ========== TÉCNICAS ========== */
     .tecnicas {
       background-color: var(--negro-medio);
@@ -340,13 +438,19 @@
 
     .tecnica-card:hover {
       border-color: var(--ocre-dorado);
-      background-color: rgba(184,134,11,0.05);
+      background-color: rgba(184,134,11,0.08);
+      transform: translateY(-5px);
     }
 
     .tecnica-icono {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--ocre-dorado);
       margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .tecnica-card:hover .tecnica-icono {
+      transform: scale(1.1);
     }
 
     .tecnica-card h3 {
@@ -382,12 +486,12 @@
       border-radius: 5px;
       text-align: center;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .btn-whatsapp:hover {
       background-color: #128C7E;
-      color: white;
+      transform: scale(1.02);
     }
 
     .formulario input,
@@ -400,6 +504,13 @@
       color: var(--marfil-hueso);
       font-family: 'Lato', sans-serif;
       font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+
+    .formulario input:focus,
+    .formulario textarea:focus {
+      outline: none;
+      border-color: var(--ocre-dorado);
     }
 
     .formulario button {
@@ -484,6 +595,11 @@
       .formulario button {
         width: 100%;
       }
+
+      .modal-contenido img {
+        max-width: 95vw;
+        max-height: 75vh;
+      }
     }
 
     @media (max-width: 400px) {
@@ -529,12 +645,12 @@
   <!-- ==================== 1. HERO ==================== -->
   <header class="hero" id="inicio">
     <div class="hero-overlay"></div>
-    <img class="hero-bg" src="imagenes/8.jpeg" alt=" Por Leticia Vazquez">
+    <img class="hero-bg" src="imagenes/8.jpeg" alt="Por Leticia Vazquez">
     
     <div class="hero-content">
-      <h1 class="animar-entrada retraso-1">La Luz que Revela<br>lo Invisible en lo Cotidiano</h1>
-      <p class="animar-entrada retraso-2">"Busco en la luz y la sombra del barroco la emoción profunda que habita en una taza, en unos granos de café, en el silencio de una botella."</p>
-      <a href="#galeria" class="btn-hero animar-entrada retraso-3">Explorar la Galería</a>
+      <h1 class="scroll-animar">La Luz que Revela<br>lo Invisible en lo Cotidiano</h1>
+      <p class="scroll-animar">"Busco en la luz y la sombra del barroco la emoción profunda que habita en una taza, en unos granos de café, en el silencio de una botella."</p>
+      <a href="#galeria" class="btn-hero scroll-animar">Explorar la Galería</a>
     </div>
   </header>
 
@@ -542,7 +658,7 @@
   <section class="sobre-mi" id="sobre-mi">
     <div class="container">
       <div class="sobre-mi-grid">
-        <div class="sobre-mi-texto">
+        <div class="sobre-mi-texto scroll-animar slide-left">
           <h2>La Mirada que Sana y Crea</h2>
           <p>Soy la <strong>Dra. Leticia Vazquez Reyes</strong>, médico general de profesión y pintora por vocación. En la consulta, miro a los ojos, escucho el cuerpo, busco el origen oculto de un malestar.</p>
           <p>Pinto de la misma manera: observo un objeto sencillo hasta que deja de ser solo materia y revela su historia, su peso, su soledad. Llevo más de <strong>7 años</strong> en este diálogo entre la ciencia que sana y el arte que devela.</p>
@@ -551,7 +667,7 @@
             "Mis pinturas de alto contraste no solo muestran una imagen, intentan meter al espectador dentro de una emoción común."
           </div>
         </div>
-        <div class="sobre-mi-img">
+        <div class="sobre-mi-img scroll-animar slide-right">
           <img src="imagenes/1.jpeg" alt="Taza metálica y botella, óleo por Leticia Vazquez">
         </div>
       </div>
@@ -561,10 +677,10 @@
   <!-- ==================== 3. GALERÍA ==================== -->
   <section id="galeria" class="galeria">
     <div class="container">
-      <h2>Instantes Revelados</h2>
+      <h2 class="scroll-animar zoom-in">Instantes Revelados</h2>
       <div class="galeria-grid">
         
-        <div class="obra-card">
+        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/1.jpeg', 'Sacralidad de lo Simple', 'Óleo sobre lienzo')">
           <img src="imagenes/1.jpeg" alt="Racimo de uvas al óleo" loading="lazy">
           <div class="obra-info">
             <h3>Sacralidad de lo Simple</h3>
@@ -572,7 +688,7 @@
           </div>
         </div>
 
-        <div class="obra-card">
+        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/2.jpeg', 'Pausa Nocturna', 'Óleo sobre lienzo')">
           <img src="imagenes/2.jpeg" alt="Taza de café metálica" loading="lazy">
           <div class="obra-info">
             <h3>Pausa Nocturna</h3>
@@ -580,7 +696,7 @@
           </div>
         </div>
 
-        <div class="obra-card">
+        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/3.jpeg', 'Blanco sobre Negro', 'Óleo sobre lienzo')">
           <img src="imagenes/3.jpeg" alt="Taza blanca con cuchara" loading="lazy">
           <div class="obra-info">
             <h3>Blanco sobre Negro</h3>
@@ -588,7 +704,7 @@
           </div>
         </div>
 
-        <div class="obra-card">
+        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/4.jpeg', 'Diálogo de Materiales', 'Óleo sobre lienzo')">
           <img src="imagenes/4.jpeg" alt="Botella y taza de cerámica" loading="lazy">
           <div class="obra-info">
             <h3>Diálogo de Materiales</h3>
@@ -596,7 +712,7 @@
           </div>
         </div>
 
-        <div class="obra-card">
+        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/5.jpeg', 'Aroma de Sombra', 'Óleo sobre lienzo')">
           <img src="imagenes/5.jpeg" alt="Granos de café con taza" loading="lazy">
           <div class="obra-info">
             <h3>Aroma de Sombra</h3>
@@ -604,7 +720,7 @@
           </div>
         </div>
 
-        <div class="obra-card">
+        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/6.jpeg', 'Geometría de la Tierra', 'Óleo sobre lienzo')">
           <img src="imagenes/6.jpeg" alt="Cebollas al óleo" loading="lazy">
           <div class="obra-info">
             <h3>Geometría de la Tierra</h3>
@@ -612,7 +728,7 @@
           </div>
         </div>
 
-        <div class="obra-card">
+        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/7.jpeg', 'Soledad Acompañada', 'Óleo sobre lienzo')">
           <img src="imagenes/7.jpeg" alt="Taza de metal solitaria" loading="lazy">
           <div class="obra-info">
             <h3>Soledad Acompañada</h3>
@@ -620,7 +736,7 @@
           </div>
         </div>
 
-        <div class="obra-card">
+        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/8.jpeg', 'Brindis en la Penumbra', 'Óleo sobre lienzo')">
           <img src="imagenes/8.jpeg" alt="Botella oscura con copa" loading="lazy">
           <div class="obra-info">
             <h3>Brindis en la Penumbra</h3>
@@ -632,22 +748,34 @@
     </div>
   </section>
 
+  <!-- ==================== MODAL / LIGHTBOX ==================== -->
+  <div id="modal" class="modal" onclick="cerrarModal()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <button class="btn-cerrar" onclick="cerrarModal()">✕</button>
+      <img id="modalImg" src="" alt="">
+      <div class="modal-info">
+        <h3 id="modalTitulo"></h3>
+        <p id="modalDescripcion"></p>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== 4. TÉCNICAS ==================== -->
   <section class="tecnicas" id="tecnicas">
     <div class="container">
-      <h2>El Legado de los Maestros</h2>
+      <h2 class="scroll-animar zoom-in">El Legado de los Maestros</h2>
       <div class="tecnicas-grid">
-        <div class="tecnica-card">
+        <div class="tecnica-card scroll-animar slide-left">
           <div class="tecnica-icono">🎨</div>
           <h3>Temple</h3>
           <p>Técnica ancestral de veladuras que aporta una luminosidad interna.</p>
         </div>
-        <div class="tecnica-card">
+        <div class="tecnica-card scroll-animar zoom-in">
           <div class="tecnica-icono">🖌️</div>
           <h3>Óleo Barroco</h3>
           <p>Claroscuro extremo. La luz emerge de la oscuridad total.</p>
         </div>
-        <div class="tecnica-card">
+        <div class="tecnica-card scroll-animar slide-right">
           <div class="tecnica-icono">☀️</div>
           <h3>Alto Contraste</h3>
           <p>Mi lenguaje pictórico para expresar la dualidad de la vida.</p>
@@ -660,13 +788,16 @@
   <section class="contacto" id="contacto">
     <div class="container">
       <div class="contacto-grid">
-        <div class="contacto-info">
+        <div class="contacto-info scroll-animar slide-left">
           <h2>Hablemos de Arte y Emociones</h2>
           <p>Si alguna de mis obras resuena contigo o deseas una pieza única que capture la belleza silenciosa de tus propios objetos y pausas, estaré encantada de escucharte.</p>
           
-         
+          <a href="https://wa.me/5210000000000?text=Hola%20Leticia,%20vi%20tu%20sitio%20web%20y%20quisiera%20saber%20más%20sobre%20tu%20obra." class="btn-whatsapp" target="_blank">
+            💬 Conversemos por WhatsApp
+          </a>
+        </div>
 
-        <div class="formulario">
+        <div class="formulario scroll-animar slide-right">
           <input type="text" placeholder="Tu nombre" required>
           <input type="email" placeholder="Tu correo electrónico" required>
           <textarea rows="5" placeholder="Cuéntame qué te inspira..." required></textarea>
@@ -683,19 +814,62 @@
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    // Activar animaciones al cargar la página
-    window.addEventListener('DOMContentLoaded', function() {
-      const elementos = document.querySelectorAll('.animar-entrada');
+    // Función para animaciones de scroll
+    function verificarScroll() {
+      const elementos = document.querySelectorAll('.scroll-animar');
       elementos.forEach(function(el) {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        // Si el elemento está visible (con un pequeño margen)
+        if (rect.top < windowHeight - 80 && rect.bottom > 0) {
+          el.classList.add('visible');
+        }
+      });
+    }
+
+    // Activar animaciones al cargar y al hacer scroll
+    window.addEventListener('DOMContentLoaded', function() {
+      // Hacer visibles los elementos del hero inmediatamente
+      document.querySelectorAll('.hero .scroll-animar').forEach(function(el) {
         el.classList.add('visible');
       });
+      // Verificar el resto
+      verificarScroll();
     });
+
+    window.addEventListener('scroll', verificarScroll);
 
     // Menú móvil
     function toggleMenu() {
       const menu = document.getElementById('menuLinks');
       menu.classList.toggle('activo');
     }
+
+    // Modal / Lightbox
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitulo = document.getElementById('modalTitulo');
+    const modalDescripcion = document.getElementById('modalDescripcion');
+
+    function abrirModal(src, titulo, descripcion) {
+      modal.style.display = 'flex';
+      modalImg.src = src;
+      modalTitulo.textContent = titulo;
+      modalDescripcion.textContent = descripcion;
+      document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+    }
+
+    function cerrarModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        cerrarModal();
+      }
+    });
   </script>
 
 </body>
