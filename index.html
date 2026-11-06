@@ -3,872 +3,1326 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galería | Dra. Leticia Vazquez Reyes</title>
-  
-  <!-- Google Fonts -->
+  <title>Leticia Vázquez Reyes · Galería de obra pictórica</title>
+  <meta name="description" content="Galería virtual de la obra al óleo de la Dra. Leticia Vázquez Reyes: médica de profesión, pintora por vocación. Recorre las salas, conoce a los maestros que la inspiran y solicita una obra.">
+  <meta name="theme-color" content="#efebe3">
+  <meta property="og:title" content="Leticia Vázquez Reyes · Galería">
+  <meta property="og:description" content="Óleo, luz y tierra. Una galería virtual en tres salas.">
+  <meta property="og:image" content="imagenes/2.jpeg">
+  <meta property="og:type" content="website">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    /* ========== PALETA DE COLORES ========== */
     :root {
-      --negro-profundo: #0a0a0c;
-      --negro-medio: #16161a;
-      --ocre-dorado: #b8860b;
-      --siena-tostada: #8b4513;
-      --verde-oliva: #556b2f;
-      --rojo-vino: #4a0e17;
-      --marfil-hueso: #f5f0e6;
-      --blanco-roto: #dcd5c8;
-      --gris-ceniza: #a9a9a9;
+      --muro: #efebe3;
+      --muro-2: #e5dfd3;
+      --papel: #fbf9f4;
+      --tinta: #1d1a16;
+      --tinta-suave: #5a5248;
+      --linea: rgba(29, 26, 22, 0.14);
+      --oro: #8a5c14;
+      --oro-claro: #c9a35a;
+      --noche: #121013;
+      --noche-2: #1b181c;
+      --marfil: #eee7da;
+
+      --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ancho: 1240px;
+      --gutter: clamp(16px, 4vw, 48px);
+
+      --z-nav: 10;
+      --z-menu: 20;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 
     body {
-      background-color: var(--negro-profundo);
-      color: var(--marfil-hueso);
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
+      background: var(--muro);
+      color: var(--tinta);
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
-    h1, h2, h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      color: var(--ocre-dorado);
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+
+    :focus-visible {
+      outline: 2px solid var(--oro);
+      outline-offset: 3px;
     }
 
-    h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      text-align: center;
-      margin-bottom: 2rem;
-      letter-spacing: 2px;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 0;
-    }
-
-    /* ========== ANIMACIONES DE SCROLL ========== */
-    .scroll-animar {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-
-    .scroll-animar.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Efectos específicos para diferentes elementos */
-    .zoom-in {
-      opacity: 0;
-      transform: scale(0.9);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .zoom-in.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .slide-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .slide-left.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .slide-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .slide-right.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* ========== MENÚ MÓVIL ========== */
-    .menu-movil {
-      display: none;
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      z-index: 1000;
-      background: rgba(10,10,12,0.9);
-      border: 1px solid var(--ocre-dorado);
-      color: var(--ocre-dorado);
-      font-size: 1.8rem;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .menu-movil-links {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 70%;
-      max-width: 300px;
-      height: 100vh;
-      background: rgba(10,10,12,0.98);
-      z-index: 999;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      border-left: 1px solid var(--ocre-dorado);
-    }
-
-    .menu-movil-links a {
-      color: var(--ocre-dorado);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+    .saltar {
+      position: absolute;
+      left: 16px;
+      top: -60px;
+      background: var(--tinta);
+      color: var(--papel);
+      padding: 10px 16px;
+      z-index: 100;
       text-decoration: none;
-      letter-spacing: 2px;
-      transition: transform 0.3s ease;
+    }
+    .saltar:focus { top: 12px; }
+
+    .envoltura {
+      width: 100%;
+      max-width: var(--ancho);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
     }
 
-    .menu-movil-links a:hover {
-      transform: translateX(-5px);
+    .seccion { padding: clamp(72px, 12vw, 152px) 0; }
+
+    .rotulo {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--oro);
     }
 
-    .menu-movil-links.activo {
+    .titulo {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      text-wrap: balance;
+    }
+
+    .titulo em { font-style: italic; color: var(--oro); }
+
+    .entrada {
+      max-width: 60ch;
+      color: var(--tinta-suave);
+      font-size: 1.0625rem;
+      text-wrap: pretty;
+    }
+
+    .cabecera-seccion {
+      display: grid;
+      gap: 18px;
+      margin-bottom: clamp(40px, 6vw, 72px);
+    }
+
+    /* ---------- Navegación ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-nav);
+      background: color-mix(in srgb, var(--muro) 88%, transparent);
+      backdrop-filter: saturate(1.2) blur(10px);
+      -webkit-backdrop-filter: saturate(1.2) blur(10px);
+      border-bottom: 1px solid var(--linea);
+    }
+
+    .nav .envoltura {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 24px;
     }
 
-    /* ========== SECCIÓN HERO ========== */
+    .marca {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .marca span { color: var(--oro); font-style: italic; font-weight: 500; }
+
+    .nav-enlaces {
+      display: flex;
+      gap: clamp(16px, 2.4vw, 32px);
+      list-style: none;
+    }
+
+    .nav-enlaces a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--tinta-suave);
+      padding: 8px 0;
+      transition: color 160ms ease;
+    }
+
+    @media (hover: hover) {
+      .nav-enlaces a:hover { color: var(--tinta); }
+    }
+
+    .btn-menu {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--linea);
+      background: transparent;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-menu svg { width: 18px; height: 18px; }
+
+    /* ---------- Entrada / Hero ---------- */
     .hero {
       position: relative;
-      height: 100vh;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      padding: clamp(48px, 9vw, 120px) 0 clamp(72px, 10vw, 128px);
       overflow: hidden;
     }
 
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, transparent 20%, var(--negro-profundo) 90%);
-      z-index: 2;
-      animation: fadeIn 2s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes escalaSuave {
-      from {
-        opacity: 0;
-        transform: scale(1.1);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .hero-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      animation: escalaSuave 2.5s ease forwards;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 3;
-      max-width: 800px;
-      padding: 1.5rem;
+    .hero .envoltura {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: clamp(40px, 7vw, 96px);
+      align-items: center;
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 30px rgba(0,0,0,0.8);
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(3rem, 8.5vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin: 20px 0 28px;
     }
+    .hero h1 em { display: block; font-style: italic; color: var(--oro); }
 
-    .hero p {
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      font-weight: 300;
-      color: var(--blanco-roto);
-      margin-bottom: 2.5rem;
-      font-style: italic;
-    }
+    .hero .entrada { margin-bottom: 36px; }
 
-    .btn-hero {
-      display: inline-block;
-      padding: 0.8rem 2rem;
-      border: 2px solid var(--ocre-dorado);
-      color: var(--ocre-dorado);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.4s ease;
-    }
+    .acciones { display: flex; flex-wrap: wrap; gap: 12px; }
 
-    .btn-hero:hover {
-      background-color: var(--ocre-dorado);
-      color: var(--negro-profundo);
-    }
-
-    /* ========== SECCIÓN SOBRE MÍ ========== */
-    .sobre-mi {
-      background-color: var(--negro-medio);
-    }
-
-    .sobre-mi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+    .btn {
+      display: inline-flex;
       align-items: center;
-    }
-
-    .sobre-mi-texto h2 {
-      text-align: left;
-      margin-bottom: 1.5rem;
-    }
-
-    .sobre-mi-texto p {
-      margin-bottom: 1.2rem;
-      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-    }
-
-    .sobre-mi-cita {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.2rem, 2vw, 1.5rem);
-      color: var(--ocre-dorado);
-      border-left: 3px solid var(--ocre-dorado);
-      padding-left: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    .sobre-mi-img img {
-      width: 100%;
-      border: 1px solid var(--ocre-dorado);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      transition: transform 0.5s ease;
-    }
-
-    .sobre-mi-img img:hover {
-      transform: scale(1.02);
-    }
-
-    /* ========== GALERÍA ========== */
-    .galeria-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .obra-card {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      border: 1px solid rgba(184,134,11,0.2);
-      transition: all 0.4s ease;
-    }
-
-    .obra-card:hover {
-      border-color: var(--ocre-dorado);
-      transform: translateY(-8px);
-      box-shadow: 0 20px 35px rgba(0,0,0,0.6);
-    }
-
-    .obra-card img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .obra-card:hover img {
-      transform: scale(1.05);
-    }
-
-    .obra-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(transparent, var(--negro-profundo) 80%);
-      padding: 2rem 1rem 1rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .obra-card:hover .obra-info {
-      opacity: 1;
-    }
-
-    .obra-info h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .obra-info p {
-      font-size: 0.85rem;
-      color: var(--gris-ceniza);
-    }
-
-    /* ========== MODAL / LIGHTBOX ========== */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(8px);
       justify-content: center;
-      align-items: center;
-      animation: fadeIn 0.3s ease;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 24px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 999px;
+      border: 1px solid var(--tinta);
+      background: var(--tinta);
+      color: var(--papel);
+      transition: transform 160ms var(--ease-out), background-color 160ms ease, color 160ms ease;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn--linea { background: transparent; color: var(--tinta); }
+
+    @media (hover: hover) {
+      .btn:hover { background: #000; }
+      .btn--linea:hover { background: var(--tinta); color: var(--papel); }
     }
 
-    .modal-contenido {
-      position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
-      animation: escalaSuave 0.3s ease;
-    }
+    .hero-obra { position: relative; justify-self: center; width: 100%; max-width: 560px; }
 
-    .modal-contenido img {
-      width: auto;
-      max-width: 90vw;
-      max-height: 85vh;
-      object-fit: contain;
-      border: 2px solid var(--ocre-dorado);
-      box-shadow: 0 0 40px rgba(184,134,11,0.3);
-    }
-
-    .modal-info {
-      text-align: center;
-      margin-top: 1rem;
-      color: var(--marfil-hueso);
-    }
-
-    .modal-info h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .modal-info p {
-      font-size: 1rem;
-      color: var(--gris-ceniza);
-    }
-
-    .btn-cerrar {
+    .hero-obra::before {
+      content: '';
       position: absolute;
-      top: -40px;
-      right: 0;
-      background: none;
-      border: none;
-      color: var(--ocre-dorado);
-      font-size: 2rem;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+      inset: -18% -20% auto;
+      height: 80%;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255, 246, 220, 0.95), transparent 65%);
+      pointer-events: none;
     }
 
-    .btn-cerrar:hover {
-      transform: scale(1.2);
+    .placa {
+      position: relative;
+      margin: 28px auto 0;
+      width: max-content;
+      max-width: 100%;
+      background: var(--papel);
+      padding: 12px 18px;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: var(--tinta-suave);
+      box-shadow: 0 1px 2px rgba(29, 26, 22, 0.12);
+    }
+    .placa strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--tinta);
     }
 
-    /* ========== TÉCNICAS ========== */
-    .tecnicas {
-      background-color: var(--negro-medio);
+    /* ---------- Marco (passe-partout) ---------- */
+    .marco {
+      position: relative;
+      background: var(--papel);
+      padding: clamp(10px, 1.8vw, 20px);
+      box-shadow:
+        0 0 0 1px rgba(29, 26, 22, 0.06),
+        0 2px 4px rgba(29, 26, 22, 0.06),
+        0 24px 40px -22px rgba(40, 28, 14, 0.55);
+    }
+    .marco img {
+      width: 100%;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+      outline: 1px solid rgba(0, 0, 0, 0.08);
+      outline-offset: -1px;
+    }
+    .marco--oscuro {
+      background: #0b0a0c;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 30px 60px -20px rgba(0, 0, 0, 0.8);
     }
 
-    .tecnicas-grid {
+    /* ---------- Texto curatorial ---------- */
+    .curatorial { border-top: 1px solid var(--linea); }
+
+    .curatorial-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
-      text-align: center;
-    }
-
-    .tecnica-card {
-      padding: 2rem 1.5rem;
-      border: 1px solid rgba(184,134,11,0.3);
-      transition: all 0.3s ease;
-    }
-
-    .tecnica-card:hover {
-      border-color: var(--ocre-dorado);
-      background-color: rgba(184,134,11,0.08);
-      transform: translateY(-5px);
-    }
-
-    .tecnica-icono {
-      font-size: 2.8rem;
-      color: var(--ocre-dorado);
-      margin-bottom: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    .tecnica-card:hover .tecnica-icono {
-      transform: scale(1.1);
-    }
-
-    .tecnica-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .tecnica-card p {
-      font-size: 0.95rem;
-    }
-
-    /* ========== CONTACTO ========== */
-    .contacto-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(40px, 7vw, 112px);
       align-items: start;
     }
 
-    .contacto-info h2 {
+    .curatorial-texto p {
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+      line-height: 1.45;
+      margin-bottom: 1.1em;
+      text-wrap: pretty;
+    }
+    .curatorial-texto p:first-child::first-letter {
+      float: left;
+      font-size: 4.4em;
+      line-height: 0.82;
+      padding: 0.06em 0.1em 0 0;
+      color: var(--oro);
+    }
+
+    .cifras {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--linea);
+      margin-top: 40px;
+    }
+    .cifra { padding: 24px 16px 0 0; }
+    .cifra b {
+      display: block;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      line-height: 1;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .cifra span { font-size: 0.875rem; color: var(--tinta-suave); }
+
+    /* ---------- Salas / Muro de obras ---------- */
+    .salas { background: var(--muro-2); }
+
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: clamp(32px, 5vw, 56px);
+    }
+    .filtro {
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--linea);
+      background: transparent;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--tinta-suave);
+      transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+    .filtro[aria-pressed="true"] {
+      background: var(--tinta);
+      border-color: var(--tinta);
+      color: var(--papel);
+    }
+    @media (hover: hover) {
+      .filtro:not([aria-pressed="true"]):hover { border-color: var(--tinta); color: var(--tinta); }
+    }
+
+    .descripcion-sala {
+      min-height: 3.4em;
+      margin: -24px 0 40px;
+      max-width: 62ch;
+      color: var(--tinta-suave);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    .muro {
+      columns: 3 280px;
+      column-gap: clamp(24px, 4vw, 56px);
+    }
+
+    .obra {
+      break-inside: avoid;
+      margin-bottom: clamp(40px, 6vw, 72px);
+    }
+    .obra[hidden] { display: none; }
+
+    .obra-boton {
+      display: block;
+      width: 100%;
+      border: 0;
+      background: none;
       text-align: left;
-      margin-bottom: 1.5rem;
     }
 
-    .btn-whatsapp {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.9rem 1.8rem;
-      background-color: #25D366;
-      color: white;
+    .obra .marco { transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out); }
+
+    @media (hover: hover) {
+      .obra-boton:hover .marco {
+        transform: translateY(-4px);
+        box-shadow:
+          0 0 0 1px rgba(29, 26, 22, 0.06),
+          0 4px 8px rgba(29, 26, 22, 0.06),
+          0 36px 50px -24px rgba(40, 28, 14, 0.6);
+      }
+    }
+
+    .cedula {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2px 14px;
+      margin-top: 18px;
+      font-size: 0.8125rem;
+      color: var(--tinta-suave);
+    }
+    .cedula .num {
+      grid-row: span 3;
+      font-family: var(--serif);
       font-size: 1.1rem;
-      font-weight: 700;
-      border-radius: 5px;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.3s ease;
+      color: var(--oro);
+      font-variant-numeric: lining-nums tabular-nums;
+      padding-top: 2px;
+    }
+    .cedula .nombre {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--tinta);
     }
 
-    .btn-whatsapp:hover {
-      background-color: #128C7E;
-      transform: scale(1.02);
+    /* ---------- Obra destacada ---------- */
+    .destacada {
+      background: var(--noche);
+      color: var(--marfil);
+      position: relative;
+      overflow: hidden;
+    }
+    .destacada::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(70, 110, 190, 0.22), transparent 70%);
+      pointer-events: none;
+    }
+    .destacada .rotulo { color: var(--oro-claro); }
+    .destacada .titulo em { color: var(--oro-claro); }
+    .destacada .entrada { color: rgba(238, 231, 218, 0.72); }
+
+    .destacada-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: clamp(40px, 7vw, 96px);
+      align-items: center;
     }
 
-    .formulario input,
-    .formulario textarea {
+    .destacada-notas { list-style: none; margin-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+    .destacada-notas li {
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.9375rem;
+    }
+    .destacada-notas b {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--oro-claro);
+      padding-top: 3px;
+    }
+
+    .lupa-zona { position: relative; touch-action: none; cursor: zoom-in; }
+    .lupa {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      pointer-events: none;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      background-repeat: no-repeat;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.85);
+      transition: opacity 160ms ease, transform 200ms var(--ease-out);
+    }
+    .lupa.activa { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .lupa-ayuda { margin-top: 14px; font-size: 0.8125rem; color: rgba(238, 231, 218, 0.6); }
+
+    /* ---------- Maestros ---------- */
+    .maestros-lista { list-style: none; border-top: 1px solid var(--linea); }
+
+    .maestro {
+      display: grid;
+      grid-template-columns: 3rem minmax(0, 1.1fr) minmax(0, 1.4fr) 13rem;
+      gap: clamp(16px, 3vw, 40px);
+      align-items: center;
+      padding: clamp(20px, 3vw, 32px) 0;
+      border-bottom: 1px solid var(--linea);
+    }
+    .maestro .num { font-family: var(--serif); color: var(--oro); font-size: 1.1rem; font-variant-numeric: lining-nums; }
+    .maestro h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.1;
+    }
+    .maestro h3 small {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      color: var(--tinta-suave);
+      letter-spacing: 0.02em;
+      margin-top: 6px;
+    }
+    .maestro p { color: var(--tinta-suave); font-size: 0.9375rem; text-wrap: pretty; }
+
+    .miniaturas { display: flex; gap: 8px; justify-content: flex-end; }
+    .miniatura {
+      width: 64px;
+      height: 64px;
+      padding: 4px;
+      border: 0;
+      background: var(--papel);
+      box-shadow: 0 0 0 1px var(--linea), 0 8px 16px -10px rgba(40, 28, 14, 0.5);
+      transition: transform 160ms var(--ease-out);
+    }
+    .miniatura img { width: 100%; height: 100%; object-fit: cover; }
+    .miniatura:active { transform: scale(0.95); }
+    @media (hover: hover) { .miniatura:hover { transform: translateY(-2px); } }
+
+    /* ---------- Consultorio y caballete ---------- */
+    .dualidad { background: var(--papel); }
+
+    .dualidad-tabla {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      border-top: 1px solid var(--linea);
+    }
+    .dualidad-cab {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--linea);
+    }
+    .dualidad-tabla > div:nth-child(even) { padding-left: clamp(16px, 4vw, 48px); border-left: 1px solid var(--linea); }
+
+    .dualidad-tabla > div {
+      padding-top: 24px;
+      padding-bottom: 24px;
+      padding-right: clamp(8px, 2vw, 24px);
+      border-bottom: 1px solid var(--linea);
+    }
+    .dualidad-tabla h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+    .dualidad-tabla p { color: var(--tinta-suave); font-size: 0.9375rem; }
+
+    .cita {
+      margin-top: clamp(48px, 7vw, 88px);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+      line-height: 1.25;
+      max-width: 28ch;
+      text-wrap: balance;
+    }
+    .cita footer {
+      margin-top: 16px;
+      font-family: var(--sans);
+      font-style: normal;
+      font-size: 0.875rem;
+      color: var(--tinta-suave);
+    }
+
+    /* ---------- Proceso ---------- */
+    .pasos {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(16px, 3vw, 32px);
+      counter-reset: paso;
+    }
+    .paso {
+      counter-increment: paso;
+      border-top: 2px solid var(--tinta);
+      padding-top: 20px;
+    }
+    .paso::before {
+      content: counter(paso, upper-roman) '.';
+      display: block;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--oro);
+      margin-bottom: 18px;
+    }
+    .paso h3 { font-family: var(--serif); font-weight: 600; font-size: 1.6rem; line-height: 1.15; margin-bottom: 10px; }
+    .paso p { color: var(--tinta-suave); font-size: 0.9375rem; }
+
+    /* ---------- Encargos / contacto ---------- */
+    .encargos { border-top: 1px solid var(--linea); }
+
+    .encargos-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(40px, 7vw, 96px);
+      align-items: start;
+    }
+
+    .formulario { display: grid; gap: 18px; }
+    .formulario[hidden] { display: none; }
+    .campo { display: grid; gap: 6px; }
+    .campo label { font-size: 0.8125rem; font-weight: 600; color: var(--tinta-suave); }
+    .campo input,
+    .campo select,
+    .campo textarea {
       width: 100%;
-      padding: 0.9rem;
-      margin-bottom: 0.8rem;
-      background-color: var(--negro-medio);
-      border: 1px solid rgba(184,134,11,0.3);
-      color: var(--marfil-hueso);
-      font-family: 'Lato', sans-serif;
+      font: inherit;
       font-size: 1rem;
-      transition: border 0.3s ease;
+      color: var(--tinta);
+      background: var(--papel);
+      border: 1px solid var(--linea);
+      border-radius: 4px;
+      padding: 12px 14px;
+      min-height: 48px;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
     }
-
-    .formulario input:focus,
-    .formulario textarea:focus {
+    .campo textarea { resize: vertical; min-height: 140px; }
+    .campo input:focus,
+    .campo select:focus,
+    .campo textarea:focus {
       outline: none;
-      border-color: var(--ocre-dorado);
+      border-color: var(--oro);
+      box-shadow: 0 0 0 3px rgba(138, 92, 20, 0.15);
     }
 
-    .formulario button {
-      padding: 0.9rem 2rem;
-      background-color: transparent;
-      border: 2px solid var(--ocre-dorado);
-      color: var(--ocre-dorado);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    .lista-encargos { list-style: none; margin-top: 32px; display: grid; gap: 14px; }
+    .lista-encargos li { display: flex; gap: 12px; color: var(--tinta-suave); }
+    .lista-encargos li::before { content: '—'; color: var(--oro); }
+
+    /* ---------- Pie ---------- */
+    .pie {
+      background: var(--noche);
+      color: rgba(238, 231, 218, 0.7);
+      padding: 56px 0 40px;
+      font-size: 0.875rem;
+    }
+    .pie .envoltura {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .pie .marca { color: var(--marfil); }
+    .pie a { text-decoration-color: rgba(238, 231, 218, 0.35); text-underline-offset: 3px; }
+
+    /* ---------- Visor (lightbox) ---------- */
+    .visor {
+      border: 0;
+      padding: 0;
+      max-width: none;
+      max-height: none;
       width: 100%;
+      height: 100%;
+      background: #0e0c0e;
+      color: var(--marfil);
+    }
+    .visor::backdrop { background: rgba(14, 12, 14, 0.6); }
+    .visor[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+    .visor[open] .visor-lienzo img { animation: aparecer 240ms var(--ease-out); }
+
+    .visor-barra {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px var(--gutter);
+    }
+    .visor-contador { font-size: 0.8125rem; letter-spacing: 0.14em; font-variant-numeric: tabular-nums; color: rgba(238, 231, 218, 0.65); }
+
+    .visor-lienzo {
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr) 56px;
+      align-items: center;
+      gap: 8px;
+      padding: 0 var(--gutter);
+      min-height: 0;
+    }
+    .visor-lienzo figure { height: 100%; min-height: 0; display: grid; place-items: center; }
+    .visor-lienzo img {
+      max-width: 100%;
+      max-height: calc(100vh - 220px);
+      max-height: calc(100dvh - 220px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
     }
 
-    .formulario button:hover {
-      background-color: var(--ocre-dorado);
-      color: var(--negro-profundo);
-    }
-
-    /* ========== FOOTER ========== */
-    footer {
+    .visor-cedula {
       text-align: center;
-      padding: 2rem 1rem;
-      background-color: var(--negro-profundo);
-      border-top: 1px solid var(--ocre-dorado);
-      color: var(--gris-ceniza);
-      font-size: 0.9rem;
+      padding: 18px var(--gutter) 24px;
+      min-height: 110px;
+    }
+    .visor-cedula h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.5rem, 3vw, 2rem); }
+    .visor-cedula p { font-size: 0.875rem; color: rgba(238, 231, 218, 0.65); }
+
+    .icono-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 160ms ease, transform 160ms var(--ease-out);
+    }
+    .icono-btn svg { width: 20px; height: 20px; }
+    .icono-btn:active { transform: scale(0.94); }
+    @media (hover: hover) { .icono-btn:hover { background: rgba(255, 255, 255, 0.08); } }
+
+    .btn-recorrido {
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: transparent;
+      font-size: 0.8125rem;
+      font-weight: 600;
+    }
+    .btn-recorrido[aria-pressed="true"] { background: var(--marfil); color: var(--noche); }
+
+    .visor-grupo { display: flex; gap: 8px; align-items: center; }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 768px) {
-      .menu-movil {
-        display: flex;
-      }
+    /* ---------- Aparición al desplazar ---------- */
+    .js .revelar {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+    }
+    .js .revelar.visible { opacity: 1; transform: none; }
 
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .sobre-mi-grid,
-      .contacto-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .sobre-mi-img {
-        order: -1;
-      }
-
-      .sobre-mi-texto h2,
-      .contacto-info h2 {
-        text-align: center;
-      }
-
-      .galeria-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 0.8rem;
-      }
-
-      .obra-card img {
-        height: 200px;
-      }
-
-      .obra-info {
-        opacity: 1;
-        padding: 1rem 0.5rem 0.5rem;
-      }
-
-      .obra-info h3 {
-        font-size: 1rem;
-      }
-
-      .tecnicas-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .formulario button {
-        width: 100%;
-      }
-
-      .modal-contenido img {
-        max-width: 95vw;
-        max-height: 75vh;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .js .revelar { opacity: 1; transform: none; transition: none; }
+      .visor[open] .visor-lienzo img { animation: none; }
+      .obra .marco, .lupa, .btn, .miniatura { transition: none; }
     }
 
-    @media (max-width: 400px) {
-      .container {
-        padding: 2.5rem 0;
-      }
+    /* ---------- Adaptable ---------- */
+    @media (max-width: 960px) {
+      .maestro { grid-template-columns: 2.5rem minmax(0, 1fr); }
+      .maestro p, .maestro .miniaturas { grid-column: 2; }
+      .miniaturas { justify-content: flex-start; }
+      .pasos { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+    }
 
-      h2 {
-        font-size: 1.8rem;
+    @media (max-width: 820px) {
+      .btn-menu { display: inline-flex; }
+      .nav-enlaces {
+        position: fixed;
+        inset: 64px 0 auto 0;
+        z-index: var(--z-menu);
+        flex-direction: column;
+        gap: 0;
+        padding: 8px var(--gutter) 24px;
+        background: var(--muro);
+        border-bottom: 1px solid var(--linea);
+        box-shadow: 0 20px 30px -20px rgba(0, 0, 0, 0.25);
+        display: none;
       }
+      .nav-enlaces.abierto { display: flex; }
+      .nav-enlaces a { display: block; padding: 14px 0; font-size: 1.05rem; border-bottom: 1px solid var(--linea); }
 
-      .hero {
-        min-height: 500px;
-      }
+      .hero .envoltura,
+      .curatorial-grid,
+      .destacada-grid,
+      .encargos-grid { grid-template-columns: minmax(0, 1fr); }
 
-      .hero h1 {
-        font-size: 1.8rem;
-      }
+      .hero-obra { max-width: 440px; }
+    }
 
-      .galeria-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
+    @media (max-width: 560px) {
+      .pasos { grid-template-columns: minmax(0, 1fr); }
+      .dualidad-tabla { grid-template-columns: minmax(0, 1fr); }
+      .dualidad-cab { display: none; }
+      .dualidad-tabla > div:nth-child(even) { padding-left: 0; border-left: 0; }
+      .dualidad-tabla > div::before {
+        display: block;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--oro);
+        margin-bottom: 6px;
       }
-
-      .obra-card img {
-        height: 150px;
-      }
+      .dualidad-tabla > div:nth-child(odd):not(.dualidad-cab)::before { content: 'En el consultorio'; }
+      .dualidad-tabla > div:nth-child(even):not(.dualidad-cab)::before { content: 'Frente al caballete'; }
+      .visor-lienzo { grid-template-columns: minmax(0, 1fr); }
+      .visor-lienzo .icono-btn { display: none; }
+      .cifra b { font-size: 2.1rem; }
+      .lupa { width: 130px; height: 130px; }
+      .destacada-notas li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
     }
   </style>
 </head>
 <body>
+  <a class="saltar" href="#principal">Saltar al contenido</a>
 
-  <!-- ==================== MENÚ MÓVIL ==================== -->
-  <div class="menu-movil" id="btnMenu" onclick="toggleMenu()">☰</div>
-  <nav class="menu-movil-links" id="menuLinks">
-    <a href="#inicio" onclick="toggleMenu()">Inicio</a>
-    <a href="#sobre-mi" onclick="toggleMenu()">Sobre Mí</a>
-    <a href="#galeria" onclick="toggleMenu()">Galería</a>
-    <a href="#tecnicas" onclick="toggleMenu()">Técnicas</a>
-    <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+  <nav class="nav" aria-label="Principal">
+    <div class="envoltura">
+      <a class="marca" href="#inicio">Leticia <span>Vázquez Reyes</span></a>
+      <button class="btn-menu" id="btnMenu" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+      <ul class="nav-enlaces" id="menu">
+        <li><a href="#curatorial">La artista</a></li>
+        <li><a href="#salas">Salas</a></li>
+        <li><a href="#destacada">Obra destacada</a></li>
+        <li><a href="#maestros">Maestros</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#encargos">Encargos</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- ==================== 1. HERO ==================== -->
-  <header class="hero" id="inicio">
-    <div class="hero-overlay"></div>
-    <img class="hero-bg" src="imagenes/8.jpeg" alt="Por Leticia Vazquez">
-    
-    <div class="hero-content">
-      <h1 class="scroll-animar">La Luz que Revela<br>lo Invisible en lo Cotidiano</h1>
-      <p class="scroll-animar">"Busco en la luz y la sombra del barroco la emoción profunda que habita en una taza, en unos granos de café, en el silencio de una botella."</p>
-      <a href="#galeria" class="btn-hero scroll-animar">Explorar la Galería</a>
-    </div>
-  </header>
+  <main id="principal">
 
-  <!-- ==================== 2. SOBRE MÍ ==================== -->
-  <section class="sobre-mi" id="sobre-mi">
-    <div class="container">
-      <div class="sobre-mi-grid">
-        <div class="sobre-mi-texto scroll-animar slide-left">
-          <h2>La Mirada que Sana y Crea</h2>
-          <p>Soy la <strong>Dra. Leticia Vazquez Reyes</strong>, médico general de profesión y pintora por vocación. En la consulta, miro a los ojos, escucho el cuerpo, busco el origen oculto de un malestar.</p>
-          <p>Pinto de la misma manera: observo un objeto sencillo hasta que deja de ser solo materia y revela su historia, su peso, su soledad. Llevo más de <strong>7 años</strong> en este diálogo entre la ciencia que sana y el arte que devela.</p>
-          <p>He realizado alrededor de <strong>12 obras</strong> en las pausas que me regalan mi profesión y mi familia. Esa entrega pausada se refleja en cada veladura, en cada contraste de luz y sombra.</p>
-          <div class="sobre-mi-cita">
-            "Mis pinturas de alto contraste no solo muestran una imagen, intentan meter al espectador dentro de una emoción común."
+    <!-- Entrada -->
+    <header class="hero" id="inicio">
+      <div class="envoltura">
+        <div>
+          <p class="rotulo revelar">Galería virtual · Óleo sobre lienzo</p>
+          <h1 class="revelar">Luz, tierra
+            <em>y silencio</em></h1>
+          <p class="entrada revelar">La obra pictórica de la Dra. Leticia Vázquez Reyes: médica de profesión y pintora por vocación. Un recorrido en tres salas por el trabajo del campo, el claroscuro de los grandes maestros y las raíces que nos nombran.</p>
+          <div class="acciones revelar">
+            <a class="btn" href="#salas">Entrar a las salas</a>
+            <button class="btn btn--linea" type="button" id="btnRecorridoHero">Iniciar recorrido guiado</button>
           </div>
         </div>
-        <div class="sobre-mi-img scroll-animar slide-right">
-          <img src="imagenes/1.jpeg" alt="Taza metálica y botella, óleo por Leticia Vazquez">
+
+        <figure class="hero-obra revelar">
+          <div class="marco">
+            <img src="imagenes/2.jpeg" width="1280" height="960" alt="Pareja de campesinos de pie en un campo al atardecer, con la cabeza inclinada en oración; al fondo, el campanario de una iglesia." fetchpriority="high">
+          </div>
+          <figcaption class="placa">
+            <strong>El Ángelus</strong>
+            Óleo sobre lienzo · Versión libre según Jean‑François Millet
+          </figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <!-- Texto curatorial -->
+    <section class="seccion curatorial" id="curatorial" aria-labelledby="t-curatorial">
+      <div class="envoltura curatorial-grid">
+        <div class="cabecera-seccion revelar">
+          <p class="rotulo">Texto de sala</p>
+          <h2 class="titulo" id="t-curatorial">La mirada que <em>sana</em> y crea</h2>
+        </div>
+        <div class="revelar">
+          <div class="curatorial-texto">
+            <p>En la consulta, Leticia mira a los ojos, escucha el cuerpo y busca el origen oculto de un malestar. Frente al lienzo hace lo mismo: observa hasta que la escena deja de ser solo forma y revela su peso, su historia y su emoción.</p>
+            <p>Desde hace más de siete años, en las pausas que le regalan su profesión y su familia, conversa con los maestros que admira. Copiar, para ella, es una forma de estudiar: entender cómo cae la luz sobre una espalda cansada, cómo un rojo se enciende desde la sombra.</p>
+          </div>
+          <div class="cifras" role="list">
+            <div class="cifra" role="listitem"><b>7+</b><span>años pintando</span></div>
+            <div class="cifra" role="listitem"><b>≈12</b><span>obras realizadas</span></div>
+            <div class="cifra" role="listitem"><b>8</b><span>obras en sala</span></div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ==================== 3. GALERÍA ==================== -->
-  <section id="galeria" class="galeria">
-    <div class="container">
-      <h2 class="scroll-animar zoom-in">Instantes Revelados</h2>
-      <div class="galeria-grid">
-        
-        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/1.jpeg', 'Sacralidad de lo Simple', 'Óleo sobre lienzo')">
-          <img src="imagenes/1.jpeg" alt="Racimo de uvas al óleo" loading="lazy">
-          <div class="obra-info">
-            <h3>Sacralidad de lo Simple</h3>
-            <p>Óleo sobre lienzo</p>
-          </div>
+    <!-- Salas -->
+    <section class="seccion salas" id="salas" aria-labelledby="t-salas">
+      <div class="envoltura">
+        <div class="cabecera-seccion revelar">
+          <p class="rotulo">Colección</p>
+          <h2 class="titulo" id="t-salas">Tres salas, <em>ocho obras</em></h2>
         </div>
 
-        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/2.jpeg', 'Pausa Nocturna', 'Óleo sobre lienzo')">
-          <img src="imagenes/2.jpeg" alt="Taza de café metálica" loading="lazy">
-          <div class="obra-info">
-            <h3>Pausa Nocturna</h3>
-            <p>Óleo sobre lienzo</p>
-          </div>
+        <div class="filtros revelar" role="group" aria-label="Filtrar por sala">
+          <button class="filtro" type="button" data-sala="todas" aria-pressed="true">Todas</button>
+          <button class="filtro" type="button" data-sala="tierra" aria-pressed="false">Sala I · La tierra</button>
+          <button class="filtro" type="button" data-sala="claroscuro" aria-pressed="false">Sala II · Claroscuro</button>
+          <button class="filtro" type="button" data-sala="raices" aria-pressed="false">Sala III · Raíces y noche</button>
         </div>
+        <p class="descripcion-sala" id="descripcionSala" aria-live="polite"></p>
 
-        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/3.jpeg', 'Blanco sobre Negro', 'Óleo sobre lienzo')">
-          <img src="imagenes/3.jpeg" alt="Taza blanca con cuchara" loading="lazy">
-          <div class="obra-info">
-            <h3>Blanco sobre Negro</h3>
-            <p>Óleo sobre lienzo</p>
-          </div>
-        </div>
-
-        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/4.jpeg', 'Diálogo de Materiales', 'Óleo sobre lienzo')">
-          <img src="imagenes/4.jpeg" alt="Botella y taza de cerámica" loading="lazy">
-          <div class="obra-info">
-            <h3>Diálogo de Materiales</h3>
-            <p>Óleo sobre lienzo</p>
-          </div>
-        </div>
-
-        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/5.jpeg', 'Aroma de Sombra', 'Óleo sobre lienzo')">
-          <img src="imagenes/5.jpeg" alt="Granos de café con taza" loading="lazy">
-          <div class="obra-info">
-            <h3>Aroma de Sombra</h3>
-            <p>Óleo sobre lienzo</p>
-          </div>
-        </div>
-
-        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/6.jpeg', 'Geometría de la Tierra', 'Óleo sobre lienzo')">
-          <img src="imagenes/6.jpeg" alt="Cebollas al óleo" loading="lazy">
-          <div class="obra-info">
-            <h3>Geometría de la Tierra</h3>
-            <p>Óleo sobre lienzo</p>
-          </div>
-        </div>
-
-        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/7.jpeg', 'Soledad Acompañada', 'Óleo sobre lienzo')">
-          <img src="imagenes/7.jpeg" alt="Taza de metal solitaria" loading="lazy">
-          <div class="obra-info">
-            <h3>Soledad Acompañada</h3>
-            <p>Óleo sobre lienzo</p>
-          </div>
-        </div>
-
-        <div class="obra-card scroll-animar zoom-in" onclick="abrirModal('imagenes/8.jpeg', 'Brindis en la Penumbra', 'Óleo sobre lienzo')">
-          <img src="imagenes/8.jpeg" alt="Botella oscura con copa" loading="lazy">
-          <div class="obra-info">
-            <h3>Brindis en la Penumbra</h3>
-            <p>Óleo sobre lienzo</p>
-          </div>
-        </div>
-
+        <div class="muro" id="muro"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ==================== MODAL / LIGHTBOX ==================== -->
-  <div id="modal" class="modal" onclick="cerrarModal()">
-    <div class="modal-contenido" onclick="event.stopPropagation()">
-      <button class="btn-cerrar" onclick="cerrarModal()">✕</button>
-      <img id="modalImg" src="" alt="">
-      <div class="modal-info">
-        <h3 id="modalTitulo"></h3>
-        <p id="modalDescripcion"></p>
-      </div>
-    </div>
-  </div>
+    <!-- Obra destacada -->
+    <section class="seccion destacada" id="destacada" aria-labelledby="t-destacada">
+      <div class="envoltura destacada-grid">
+        <div class="revelar">
+          <div class="cabecera-seccion">
+            <p class="rotulo">Obra destacada</p>
+            <h2 class="titulo" id="t-destacada">Luna <em>de conejo</em></h2>
+            <p class="entrada">Un árbol desnudo, retorcido como un sistema nervioso, se recorta contra una luna llena enorme. Dentro de ella, apenas sugerido, aparece el conejo que la tradición mesoamericana ve en la luna.</p>
+          </div>
+          <ul class="destacada-notas">
+            <li><b>Técnica</b><span>Óleo sobre lienzo</span></li>
+            <li><b>Paleta</b><span>Azules ultramar y de Prusia, blancos cálidos en el halo</span></li>
+            <li><b>Mira</b><span>Los círculos concéntricos del cielo y el rostro en la luna</span></li>
+          </ul>
+        </div>
 
-  <!-- ==================== 4. TÉCNICAS ==================== -->
-  <section class="tecnicas" id="tecnicas">
-    <div class="container">
-      <h2 class="scroll-animar zoom-in">El Legado de los Maestros</h2>
-      <div class="tecnicas-grid">
-        <div class="tecnica-card scroll-animar slide-left">
-          <div class="tecnica-icono">🎨</div>
-          <h3>Temple</h3>
-          <p>Técnica ancestral de veladuras que aporta una luminosidad interna.</p>
-        </div>
-        <div class="tecnica-card scroll-animar zoom-in">
-          <div class="tecnica-icono">🖌️</div>
-          <h3>Óleo Barroco</h3>
-          <p>Claroscuro extremo. La luz emerge de la oscuridad total.</p>
-        </div>
-        <div class="tecnica-card scroll-animar slide-right">
-          <div class="tecnica-icono">☀️</div>
-          <h3>Alto Contraste</h3>
-          <p>Mi lenguaje pictórico para expresar la dualidad de la vida.</p>
+        <div class="revelar">
+          <div class="marco marco--oscuro">
+            <div class="lupa-zona" id="lupaZona">
+              <img src="imagenes/8.jpeg" width="1280" height="960" loading="lazy" alt="Árbol seco de ramas retorcidas frente a una gran luna llena con un conejo sugerido en su superficie, sobre un cielo nocturno de círculos azules y montañas al fondo.">
+              <div class="lupa" id="lupa" aria-hidden="true"></div>
+            </div>
+          </div>
+          <p class="lupa-ayuda">Pasa el cursor o arrastra el dedo sobre la obra para verla de cerca.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ==================== 5. CONTACTO ==================== -->
-  <section class="contacto" id="contacto">
-    <div class="container">
-      <div class="contacto-grid">
-        <div class="contacto-info scroll-animar slide-left">
-          <h2>Hablemos de Arte y Emociones</h2>
-          <p>Si alguna de mis obras resuena contigo o deseas una pieza única que capture la belleza silenciosa de tus propios objetos y pausas, estaré encantada de escucharte.</p>
-          
-          
+    <!-- Maestros -->
+    <section class="seccion maestros" id="maestros" aria-labelledby="t-maestros">
+      <div class="envoltura">
+        <div class="cabecera-seccion revelar">
+          <p class="rotulo">Diálogo con los maestros</p>
+          <h2 class="titulo" id="t-maestros">Aprender <em>pintando</em> a quienes admiro</h2>
+          <p class="entrada">Durante siglos, los pintores se formaron copiando a los grandes. Estas son las voces con las que dialoga la obra.</p>
         </div>
 
-        <div class="formulario scroll-animar slide-right">
-          <input type="text" placeholder="Tu nombre" required>
-          <input type="email" placeholder="Tu correo electrónico" required>
-          <textarea rows="5" placeholder="Cuéntame qué te inspira..." required></textarea>
-          <button type="submit">Enviar Mensaje</button>
-        </div>
+        <ol class="maestros-lista">
+          <li class="maestro revelar">
+            <span class="num">01</span>
+            <h3>Jean‑François Millet<small>Francia · 1814–1875 · Realismo</small></h3>
+            <p>El pintor de los campesinos. Dio dignidad monumental al trabajo diario de la tierra: sembrar, espigar, detenerse a orar cuando suena la campana.</p>
+            <div class="miniaturas" data-obras="1,2,4"></div>
+          </li>
+          <li class="maestro revelar">
+            <span class="num">02</span>
+            <h3>Bartolomé Esteban Murillo<small>España · 1617–1682 · Barroco</small></h3>
+            <p>Llevó la ternura a la pintura de género: niños de la calle de Sevilla retratados con una luz cálida, sin juicio y con complicidad.</p>
+            <div class="miniaturas" data-obras="3"></div>
+          </li>
+          <li class="maestro revelar">
+            <span class="num">03</span>
+            <h3>Tiziano Vecellio<small>Venecia · c. 1488–1576 · Renacimiento</small></h3>
+            <p>Maestro del color veneciano y de la pincelada suelta. Su Cristo con la cruz a cuestas es una lección de dramatismo contenido.</p>
+            <div class="miniaturas" data-obras="5"></div>
+          </li>
+          <li class="maestro revelar">
+            <span class="num">04</span>
+            <h3>El tenebrismo<small>Europa · siglo XVII · Barroco</small></h3>
+            <p>Heredero de Caravaggio: figuras que emergen de la oscuridad total, iluminadas por una sola fuente, a veces una simple vela.</p>
+            <div class="miniaturas" data-obras="7"></div>
+          </li>
+        </ol>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer>
-    <p>© 2025 Dra. Leticia Vazquez Reyes — Claroscuro Cotidiano. Todos los derechos reservados.</p>
+    <!-- Consultorio y caballete -->
+    <section class="seccion dualidad" id="dualidad" aria-labelledby="t-dualidad">
+      <div class="envoltura">
+        <div class="cabecera-seccion revelar">
+          <p class="rotulo">Dos oficios, una mirada</p>
+          <h2 class="titulo" id="t-dualidad">Del consultorio <em>al caballete</em></h2>
+        </div>
+
+        <div class="dualidad-tabla revelar">
+          <div class="dualidad-cab rotulo">En el consultorio</div>
+          <div class="dualidad-cab rotulo">Frente al caballete</div>
+
+          <div><h3>Observar</h3><p>Antes de diagnosticar, se mira con calma: el color de la piel, la postura, lo que el paciente no dice.</p></div>
+          <div><h3>Mirar</h3><p>Antes de pintar, se estudia la escena hasta entender de dónde viene la luz y hacia dónde va la sombra.</p></div>
+
+          <div><h3>Anatomía</h3><p>Conocer músculos, huesos y tendones es parte del oficio médico.</p></div>
+          <div><h3>Figura</h3><p>Ese mismo conocimiento sostiene una espalda encorvada o una mano que carga una cruz.</p></div>
+
+          <div><h3>Paciencia</h3><p>Sanar lleva tiempo; cada tratamiento se ajusta con cuidado.</p></div>
+          <div><h3>Veladuras</h3><p>El óleo también: capa sobre capa, esperando a que cada una seque.</p></div>
+        </div>
+
+        <blockquote class="cita revelar">
+          “Mis pinturas de alto contraste no solo muestran una imagen: intentan meter al espectador dentro de una emoción común.”
+          <footer>— Leticia Vázquez Reyes</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Proceso -->
+    <section class="seccion proceso" id="proceso" aria-labelledby="t-proceso">
+      <div class="envoltura">
+        <div class="cabecera-seccion revelar">
+          <p class="rotulo">El taller</p>
+          <h2 class="titulo" id="t-proceso">Cómo nace <em>una obra</em></h2>
+        </div>
+        <ol class="pasos">
+          <li class="paso revelar"><h3>Estudio</h3><p>Se elige la escena y se analiza: composición, fuente de luz, gama de color.</p></li>
+          <li class="paso revelar"><h3>Dibujo e imprimatura</h3><p>Se encaja el dibujo sobre el lienzo y se cubre con un tono base que unifica la obra.</p></li>
+          <li class="paso revelar"><h3>Capas y veladuras</h3><p>Del oscuro al claro, el óleo se construye en capas finas que dan profundidad y brillo.</p></li>
+          <li class="paso revelar"><h3>Reposo y barniz</h3><p>La pintura descansa durante semanas antes del barniz final que la protege.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Encargos -->
+    <section class="seccion encargos" id="encargos" aria-labelledby="t-encargos">
+      <div class="envoltura encargos-grid">
+        <div class="revelar">
+          <div class="cabecera-seccion">
+            <p class="rotulo">Encargos y adquisiciones</p>
+            <h2 class="titulo" id="t-encargos">Hablemos de <em>arte</em></h2>
+            <p class="entrada">Si alguna obra resuena contigo, o deseas una pieza pensada para tu espacio, será un gusto escucharte.</p>
+          </div>
+          <ul class="lista-encargos">
+            <li>Consultas sobre las obras de esta galería</li>
+            <li>Encargos de obra al óleo</li>
+            <li>Invitaciones a exposiciones y colaboraciones</li>
+          </ul>
+        </div>
+
+        <!-- Escribe el correo de contacto en data-correo para activar el formulario -->
+        <form class="formulario revelar" id="formulario" data-correo="" hidden>
+          <div class="campo">
+            <label for="f-nombre">Nombre</label>
+            <input id="f-nombre" name="nombre" type="text" autocomplete="name" required>
+          </div>
+          <div class="campo">
+            <label for="f-correo">Correo electrónico</label>
+            <input id="f-correo" name="correo" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+          <div class="campo">
+            <label for="f-motivo">Motivo</label>
+            <select id="f-motivo" name="motivo">
+              <option>Consulta sobre una obra</option>
+              <option>Encargo de obra</option>
+              <option>Exposición o colaboración</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="f-mensaje">Mensaje</label>
+            <textarea id="f-mensaje" name="mensaje" rows="5" required></textarea>
+          </div>
+          <button class="btn" type="submit">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="envoltura">
+      <div>
+        <p class="marca">Leticia <span>Vázquez Reyes</span></p>
+        <p>© <span id="anio">2026</span> · Todas las obras pertenecen a su autora.</p>
+      </div>
+      <p>Sitio diseñado y programado por <a href="https://github.com/miguelhuerta-dev" rel="noopener">Miguel Ángel Huerta Vázquez</a></p>
+    </div>
   </footer>
 
-  <!-- ==================== JAVASCRIPT ==================== -->
-  <script>
-    // Función para animaciones de scroll
-    function verificarScroll() {
-      const elementos = document.querySelectorAll('.scroll-animar');
-      elementos.forEach(function(el) {
-        const rect = el.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        // Si el elemento está visible (con un pequeño margen)
-        if (rect.top < windowHeight - 80 && rect.bottom > 0) {
-          el.classList.add('visible');
-        }
-      });
-    }
+  <!-- Visor de obra -->
+  <dialog class="visor" id="visor" aria-labelledby="visorTitulo">
+    <div class="visor-barra">
+      <span class="visor-contador" id="visorContador"></span>
+      <div class="visor-grupo">
+        <button class="btn-recorrido" id="btnRecorrido" type="button" aria-pressed="false">Recorrido automático</button>
+        <button class="icono-btn" id="visorCerrar" type="button" aria-label="Cerrar visor">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="visor-lienzo">
+      <button class="icono-btn" id="visorPrev" type="button" aria-label="Obra anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <figure><img id="visorImg" src="" alt=""></figure>
+      <button class="icono-btn" id="visorSig" type="button" aria-label="Obra siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="visor-cedula" aria-live="polite">
+      <h2 id="visorTitulo"></h2>
+      <p id="visorDetalle"></p>
+    </div>
+  </dialog>
 
-    // Activar animaciones al cargar y al hacer scroll
-    window.addEventListener('DOMContentLoaded', function() {
-      // Hacer visibles los elementos del hero inmediatamente
-      document.querySelectorAll('.hero .scroll-animar').forEach(function(el) {
-        el.classList.add('visible');
-      });
-      // Verificar el resto
-      verificarScroll();
+  <script>
+    document.documentElement.classList.add('js');
+
+    const OBRAS = [
+      { id: 1, src: 'imagenes/1.jpeg', w: 1280, h: 960, sala: 'tierra', titulo: 'Sembrando papas', referencia: 'Versión libre según Jean‑François Millet',
+        alt: 'Un campesino abre la tierra con un azadón mientras una mujer con delantal deja caer semillas, bajo árboles de copa dorada.' },
+      { id: 2, src: 'imagenes/2.jpeg', w: 1280, h: 960, sala: 'tierra', titulo: 'El Ángelus', referencia: 'Versión libre según Jean‑François Millet',
+        alt: 'Pareja de campesinos de pie en un campo al atardecer, con la cabeza inclinada en oración; al fondo, el campanario de una iglesia.' },
+      { id: 4, src: 'imagenes/4.jpeg', w: 1280, h: 960, sala: 'tierra', titulo: 'Las espigadoras', referencia: 'Versión libre según Jean‑François Millet',
+        alt: 'Tres mujeres inclinadas recogen espigas en un campo de trigo dorado; al fondo, almiares y una carreta.' },
+      { id: 3, src: 'imagenes/3.jpeg', w: 960, h: 1280, sala: 'claroscuro', titulo: 'Niños comiendo uvas y melón', referencia: 'Versión libre según Bartolomé Esteban Murillo',
+        alt: 'Dos niños sentados comen uvas y una rebanada de melón, iluminados desde la izquierda sobre un fondo oscuro.' },
+      { id: 5, src: 'imagenes/5.jpeg', w: 1280, h: 960, sala: 'claroscuro', titulo: 'Cristo con la cruz a cuestas', referencia: 'Versión libre según Tiziano',
+        alt: 'Cristo carga el madero de la cruz y gira el rostro hacia el espectador; detrás, en penumbra, un hombre mayor le ayuda.' },
+      { id: 7, src: 'imagenes/7.jpeg', w: 960, h: 1280, sala: 'claroscuro', titulo: 'Caridad romana', referencia: 'En la tradición tenebrista',
+        alt: 'Una mujer vestida de rojo sostiene una vela y se inclina hacia un anciano encarcelado, en una escena de luz intensa y fondo oscuro.' },
+      { id: 6, src: 'imagenes/6.jpeg', w: 960, h: 1280, sala: 'raices', titulo: 'Mujer con calabaza', referencia: 'Óleo sobre lienzo',
+        alt: 'Mujer joven de trenza larga y blusa bordada sonríe sosteniendo media calabaza, frente a unos nopales y un cielo de atardecer.' },
+      { id: 8, src: 'imagenes/8.jpeg', w: 1280, h: 960, sala: 'raices', titulo: 'Luna de conejo', referencia: 'Óleo sobre lienzo',
+        alt: 'Árbol seco de ramas retorcidas frente a una gran luna llena con un conejo sugerido, sobre un cielo nocturno de círculos azules.' }
+    ];
+
+    const SALAS = {
+      todas: 'Del campo al claroscuro y de vuelta a casa: el recorrido completo.',
+      tierra: 'Sala I. El trabajo del campo como un acto casi sagrado: sembrar, espigar, detenerse a orar.',
+      claroscuro: 'Sala II. Figuras que emergen de la sombra. La lección barroca de la luz única.',
+      raices: 'Sala III. Lo nuestro: rostros, frutos y una luna que guarda un conejo.'
+    };
+
+    const numero = (i) => String(i + 1).padStart(2, '0');
+
+    // ---- Muro de obras ----
+    const muro = document.getElementById('muro');
+    OBRAS.forEach((obra, i) => {
+      const art = document.createElement('article');
+      art.className = 'obra revelar';
+      art.dataset.sala = obra.sala;
+      art.innerHTML = `
+        <button class="obra-boton" type="button" aria-label="Ver ${obra.titulo} en grande">
+          <div class="marco"><img src="${obra.src}" width="${obra.w}" height="${obra.h}" loading="lazy" alt="${obra.alt}"></div>
+          <div class="cedula">
+            <span class="num">${numero(i)}</span>
+            <span class="nombre">${obra.titulo}</span>
+            <span>Óleo sobre lienzo</span>
+            <span>${obra.referencia === 'Óleo sobre lienzo' ? 'Leticia Vázquez Reyes' : obra.referencia}</span>
+          </div>
+        </button>`;
+      art.querySelector('button').addEventListener('click', () => abrirVisor(i));
+      muro.appendChild(art);
     });
 
-    window.addEventListener('scroll', verificarScroll);
+    // ---- Filtros ----
+    const filtros = document.querySelectorAll('.filtro');
+    const descripcionSala = document.getElementById('descripcionSala');
+    let salaActual = 'todas';
+    descripcionSala.textContent = SALAS.todas;
 
-    // Menú móvil
-    function toggleMenu() {
-      const menu = document.getElementById('menuLinks');
-      menu.classList.toggle('activo');
+    filtros.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        salaActual = btn.dataset.sala;
+        filtros.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        descripcionSala.textContent = SALAS[salaActual];
+        muro.querySelectorAll('.obra').forEach((el) => {
+          el.hidden = salaActual !== 'todas' && el.dataset.sala !== salaActual;
+          el.classList.add('visible');
+        });
+      });
+    });
+
+    const indicesVisibles = () =>
+      OBRAS.map((o, i) => i).filter((i) => salaActual === 'todas' || OBRAS[i].sala === salaActual);
+
+    // ---- Miniaturas de maestros ----
+    document.querySelectorAll('.miniaturas').forEach((cont) => {
+      cont.dataset.obras.split(',').map(Number).forEach((id) => {
+        const i = OBRAS.findIndex((o) => o.id === id);
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'miniatura';
+        b.setAttribute('aria-label', `Ver ${OBRAS[i].titulo}`);
+        b.innerHTML = `<img src="${OBRAS[i].src}" alt="" loading="lazy" width="64" height="64">`;
+        b.addEventListener('click', () => abrirVisor(i, OBRAS.map((o, k) => k)));
+        cont.appendChild(b);
+      });
+    });
+
+    // ---- Visor ----
+    const visor = document.getElementById('visor');
+    const visorImg = document.getElementById('visorImg');
+    const visorTitulo = document.getElementById('visorTitulo');
+    const visorDetalle = document.getElementById('visorDetalle');
+    const visorContador = document.getElementById('visorContador');
+    const btnRecorrido = document.getElementById('btnRecorrido');
+    let lista = [];
+    let pos = 0;
+    let temporizador = null;
+    let origen = null;
+
+    function mostrar() {
+      const obra = OBRAS[lista[pos]];
+      visorImg.style.animation = 'none';
+      void visorImg.offsetWidth;
+      visorImg.style.animation = '';
+      visorImg.src = obra.src;
+      visorImg.alt = obra.alt;
+      visorTitulo.textContent = obra.titulo;
+      visorDetalle.textContent = obra.referencia === 'Óleo sobre lienzo'
+        ? 'Óleo sobre lienzo · Leticia Vázquez Reyes'
+        : `Óleo sobre lienzo · ${obra.referencia}`;
+      visorContador.textContent = `${numero(pos)} / ${numero(lista.length - 1)}`;
+      const sig = OBRAS[lista[(pos + 1) % lista.length]];
+      new Image().src = sig.src;
     }
 
-    // Modal / Lightbox
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    const modalTitulo = document.getElementById('modalTitulo');
-    const modalDescripcion = document.getElementById('modalDescripcion');
-
-    function abrirModal(src, titulo, descripcion) {
-      modal.style.display = 'flex';
-      modalImg.src = src;
-      modalTitulo.textContent = titulo;
-      modalDescripcion.textContent = descripcion;
-      document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+    function abrirVisor(indice, conjunto) {
+      lista = conjunto || indicesVisibles();
+      pos = Math.max(0, lista.indexOf(indice));
+      origen = document.activeElement;
+      mostrar();
+      if (!visor.open) visor.showModal();
+      document.body.style.overflow = 'hidden';
     }
 
-    function cerrarModal() {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
+    function mover(delta) {
+      pos = (pos + delta + lista.length) % lista.length;
+      mostrar();
     }
 
-    // Cerrar con tecla ESC
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        cerrarModal();
+    function detenerRecorrido() {
+      clearInterval(temporizador);
+      temporizador = null;
+      btnRecorrido.setAttribute('aria-pressed', 'false');
+    }
+
+    function alternarRecorrido() {
+      if (temporizador) return detenerRecorrido();
+      btnRecorrido.setAttribute('aria-pressed', 'true');
+      temporizador = setInterval(() => mover(1), 5000);
+    }
+
+    visor.addEventListener('close', () => {
+      detenerRecorrido();
+      document.body.style.overflow = '';
+      if (origen) origen.focus();
+    });
+
+    document.getElementById('visorCerrar').addEventListener('click', () => visor.close());
+    document.getElementById('visorPrev').addEventListener('click', () => { detenerRecorrido(); mover(-1); });
+    document.getElementById('visorSig').addEventListener('click', () => { detenerRecorrido(); mover(1); });
+    btnRecorrido.addEventListener('click', alternarRecorrido);
+
+    visor.addEventListener('click', (e) => {
+      if (e.target === visor || e.target.tagName === 'FIGURE') visor.close();
+    });
+
+    visor.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { detenerRecorrido(); mover(1); }
+      if (e.key === 'ArrowLeft') { detenerRecorrido(); mover(-1); }
+    });
+
+    let toqueX = null;
+    visor.addEventListener('touchstart', (e) => { toqueX = e.touches[0].clientX; }, { passive: true });
+    visor.addEventListener('touchend', (e) => {
+      if (toqueX === null) return;
+      const dx = e.changedTouches[0].clientX - toqueX;
+      if (Math.abs(dx) > 50) { detenerRecorrido(); mover(dx < 0 ? 1 : -1); }
+      toqueX = null;
+    });
+
+    document.getElementById('btnRecorridoHero').addEventListener('click', () => {
+      abrirVisor(0, OBRAS.map((o, i) => i));
+      alternarRecorrido();
+    });
+
+    // ---- Lupa ----
+    const zona = document.getElementById('lupaZona');
+    const lupa = document.getElementById('lupa');
+    const lupaImg = zona.querySelector('img');
+    const AUMENTO = 2.6;
+    lupa.style.backgroundImage = `url(${lupaImg.src})`;
+
+    function moverLupa(e) {
+      const r = zona.getBoundingClientRect();
+      const x = Math.min(Math.max(e.clientX - r.left, 0), r.width);
+      const y = Math.min(Math.max(e.clientY - r.top, 0), r.height);
+      const t = lupa.offsetWidth / 2;
+      lupa.style.left = `${x}px`;
+      lupa.style.top = `${y}px`;
+      lupa.style.backgroundSize = `${r.width * AUMENTO}px ${r.height * AUMENTO}px`;
+      lupa.style.backgroundPosition = `${-(x * AUMENTO - t)}px ${-(y * AUMENTO - t)}px`;
+    }
+    zona.addEventListener('pointerenter', (e) => { lupa.classList.add('activa'); moverLupa(e); });
+    zona.addEventListener('pointerdown', (e) => { lupa.classList.add('activa'); moverLupa(e); });
+    zona.addEventListener('pointermove', moverLupa);
+    zona.addEventListener('pointerleave', () => lupa.classList.remove('activa'));
+    zona.addEventListener('pointerup', (e) => { if (e.pointerType !== 'mouse') lupa.classList.remove('activa'); });
+
+    // ---- Menú móvil ----
+    const btnMenu = document.getElementById('btnMenu');
+    const menu = document.getElementById('menu');
+    btnMenu.addEventListener('click', () => {
+      const abierto = menu.classList.toggle('abierto');
+      btnMenu.setAttribute('aria-expanded', String(abierto));
+      btnMenu.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+    });
+    menu.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        menu.classList.remove('abierto');
+        btnMenu.setAttribute('aria-expanded', 'false');
+        btnMenu.setAttribute('aria-label', 'Abrir menú');
       }
     });
-  </script>
 
+    // ---- Formulario ----
+    const form = document.getElementById('formulario');
+    if (form.dataset.correo) {
+      form.hidden = false;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const d = new FormData(form);
+        const asunto = `${d.get('motivo')} — ${d.get('nombre')}`;
+        const cuerpo = `${d.get('mensaje')}\n\n${d.get('nombre')}\n${d.get('correo')}`;
+        window.location.href = `mailto:${form.dataset.correo}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+      });
+    }
+
+    // ---- Aparición al desplazar ----
+    const observador = new IntersectionObserver((entradas) => {
+      entradas.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.classList.add('visible');
+          observador.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.revelar').forEach((el) => observador.observe(el));
+
+    document.getElementById('anio').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
